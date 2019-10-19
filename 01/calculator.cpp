@@ -2,7 +2,6 @@
 
 using namespace std;
 
-int flag = 0;
 
 string trim(string& str)
 {
@@ -11,7 +10,7 @@ string trim(string& str)
     return str;
 }
 
-int exec (string str)
+int exec (string str, int &flag)
 {
 
     string str1, str2;
@@ -29,7 +28,7 @@ int exec (string str)
             flag = -1;
             return 0;
         }
-        return (exec(str1) + exec(str2));
+        return (exec(str1, flag) + exec(str2, flag));
     }
 
     int ind2 = str.rfind("-");
@@ -46,22 +45,22 @@ int exec (string str)
             {
                 case '+':
                     str1.erase(str1.size() - 1, 1);
-                    return (exec(str1) - exec(str2));
+                    return (exec(str1, flag) - exec(str2, flag));
                 case '-':
                     str1.erase(str1.size() - 1, 1);
-                    return (exec(str1) + exec(str2));
+                    return (exec(str1, flag) + exec(str2, flag));
                 case '*':
                     str1.erase(str1.size() - 1, 1);
-                    return (exec(str1) * (-exec(str2)));
+                    return (exec(str1, flag) * (-exec(str2, flag)));
                 case '/':
                     str1.erase(str1.size() - 1, 1);
-                    return (exec(str1) / (-exec(str2)));
+                    return (exec(str1, flag) / (-exec(str2, flag)));
             }
         }
 
         if ((str1.empty()) && (!str2.empty()))
         {
-            return (-exec(str2));
+            return (-exec(str2, flag));
         }
         if (str1.empty() || str2.empty())
         {
@@ -69,7 +68,7 @@ int exec (string str)
             flag = -1;
             return 0;
         }
-    return (exec(str1) - exec(str2));
+    return (exec(str1, flag) - exec(str2, flag));
     }
 
     int ind3 = str.find("*");
@@ -86,7 +85,7 @@ int exec (string str)
             flag = -1;
             return 0;
         }
-        return (exec(str1) * exec(str2));
+        return (exec(str1, flag) * exec(str2, flag));
     }
 
     int ind4 = str.rfind("/");
@@ -103,14 +102,14 @@ int exec (string str)
         flag = -1;
         return 0;
     }
-    if (exec(str2) == 0)
+    if (exec(str2, flag) == 0)
     {
         cout << "Error";
         flag = -1;
         return 0;
     }
 
-    return (exec(str1) / exec(str2));
+    return (exec(str1, flag) / exec(str2, flag));
     }
     return (stoi(str));
     
@@ -118,55 +117,35 @@ int exec (string str)
     
 }
 
-bool check_chars(string tmp)
+bool check_chars(string &tmp, int &flag)
 {
-    for (int i = 0; i < tmp.size(); i++){
-            if (isdigit(tmp[i]))
-                tmp.replace(i, 1," ");
+        for (int i = 0; i < tmp.size(); i++)
+        {
+                if ((!isdigit(tmp[i])) && (tmp[i]!='+') && (tmp[i]!='-') && (tmp[i]!='*') && (tmp[i]!='/') && (tmp[i] != ' '))
+                {
+                    flag = -1;
+                }
         }
-                for (int i = 0; i < tmp.size(); i++){
-            if (tmp[i]=='+'){
-                tmp.replace(i,1," ");
-                }            
-        }
-        for (int i = 0; i < tmp.size(); i++){
-            if (tmp[i]=='-' ){
-                tmp.replace(i,1," ");
-            }
-        }
-                for (int i = 0; i < tmp.size(); i++){
-            if (tmp[i]=='*'){
-                tmp.replace(i,1," ");
-            }
-        }
-                for (int i = 0; i < tmp.size(); i++){
-            if (tmp[i]=='/'){
-                tmp.replace(i,1," ");
-            }
-        }
-               
-        tmp = trim(tmp);
-        if (!tmp.empty()){
-            flag = -1;
+        if (flag == -1)
             return false;
-        }
         return true;
-
 }
 
 int main(int argc, char *argv[])
 {
+        int flag = 0;
+
         if (argc != 2)
         {
             cout << "Error";
             return -1;
         }
         string str = argv[1];
-        if (!check_chars(str)){
+        if (!check_chars(str, flag)){
             cout << "Error";
             return -1;
         }
-        int value = exec(str);
+        int value = exec(str, flag);
         if (flag == -1){
             return -1;
         }
