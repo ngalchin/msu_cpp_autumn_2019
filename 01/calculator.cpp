@@ -10,7 +10,7 @@ string trim(string& str)
     return str;
 }
 
-int exec (string str, int &flag)
+int exec(const string& str, int& flag)
 {
 
     string str1, str2;
@@ -117,7 +117,7 @@ int exec (string str, int &flag)
     
 }
 
-bool check_chars(string &tmp, int &flag)
+bool check_chars(const string& tmp, int& flag)
 {
         for (int i = 0; i < tmp.size(); i++)
         {
