@@ -11,6 +11,9 @@ allocator_main.o: allocator_main.cpp
 
 run:
 	-@./allocator
+	
+test:
+	-@./allocator
 
 clean:
 	-@rm -rf *.o
