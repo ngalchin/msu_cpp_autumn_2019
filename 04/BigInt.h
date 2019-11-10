@@ -20,21 +20,15 @@ public:
 	BigInt& operator=(BigInt&& moved);
 
 	BigInt operator-() const;
-    bool operator==(const BigInt& big_num) const;
-    bool operator!=(const BigInt& big_num) const;
-    bool operator<(const BigInt& big_num) const;
-    bool operator<=(const BigInt& big_num) const;
-    bool operator>(const BigInt& big_num) const;
-    bool operator>=(const BigInt& big_num) const;
+	bool operator==(const BigInt& big_num) const;
+	bool operator!=(const BigInt& big_num) const;
+    	bool operator<(const BigInt& big_num) const;
+    	bool operator<=(const BigInt& big_num) const;
+    	bool operator>(const BigInt& big_num) const;
+    	bool operator>=(const BigInt& big_num) const;
 
-    /*friend BigInt operator+(const BigInt& left, const BigInt& right);
-    friend BigInt operator-(const BigInt& left, const BigInt& right);
-    friend std::ostream& operator<<(std::ostream& out, const BigInt& big_num);*/
-
-    friend BigInt operator+(const BigInt& l_num, const BigInt& r_num);
-    friend BigInt operator-(const BigInt& l_num, const BigInt& r_num);
-
-    friend std::ostream& operator<<(std::ostream& out, const BigInt& big_num);
-
+    	friend BigInt operator+(const BigInt& l_num, const BigInt& r_num);
+    	friend BigInt operator-(const BigInt& l_num, const BigInt& r_num);
+    	friend std::ostream& operator<<(std::ostream& out, const BigInt& big_num);
 	~BigInt();
 };
