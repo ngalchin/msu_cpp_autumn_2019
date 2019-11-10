@@ -4,7 +4,6 @@
 
 class BigInt
 {
-
 private:
 	size_t size;
 	char* number;
