@@ -15,7 +15,6 @@ int main()
 	assert(a <= b);
 	assert(!(a > b));
 	assert(!(a >= b));
-	
 	cout << a + b << endl;
 	cout << a - b << endl;
 
@@ -28,7 +27,6 @@ int main()
 	BigInt e("32000000000000000000000000000000000000000000000000000000000000000");
 	
 	assert(c + d == e);
-
 	cout << c << endl;
 	cout << d << endl;
 	cout << c + d << endl;
