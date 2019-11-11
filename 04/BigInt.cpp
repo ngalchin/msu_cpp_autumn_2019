@@ -72,14 +72,14 @@ BigInt& BigInt::operator=(BigInt&& moved)
 {
 	if (this == &moved)
         return *this;
-    negative = moved.negative;
-    size = moved.size;
-    delete [] number;
-    number = moved.number;
-    moved.number = nullptr;
-    moved.size = 0;
-    moved.negative = false;
-    return *this;
+	negative = moved.negative;
+	size = moved.size;
+	delete [] number;
+	number = moved.number;
+	moved.number = nullptr;
+	moved.size = 0;
+	moved.negative = false;
+	return *this;
 }
 
 BigInt BigInt::operator-() const 
