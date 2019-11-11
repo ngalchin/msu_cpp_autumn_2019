@@ -61,17 +61,17 @@ BigInt& BigInt::operator=(const BigInt& big_num)
 		return *this;
 	delete [] number;
 	negative = big_num.negative;
-    size = big_num.size;
-    char* ptr = new char[size];
-    number = ptr;
-    std::copy(big_num.number, big_num.number + size, number);
-    return *this;
+	size = big_num.size;
+	char* ptr = new char[size];
+	number = ptr;
+	std::copy(big_num.number, big_num.number + size, number);
+	return *this;
 }
 
 BigInt& BigInt::operator=(BigInt&& moved)
 {
 	if (this == &moved)
-        return *this;
+		return *this;
 	negative = moved.negative;
 	size = moved.size;
 	delete [] number;
