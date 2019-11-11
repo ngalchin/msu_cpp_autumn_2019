@@ -41,7 +41,7 @@ BigInt::BigInt(const std::string& str)
 
 BigInt::BigInt(const BigInt& big_num): size(big_num.size), negative(big_num.negative)
 {
-	number = new char[size];
+	number = new char [size];
 	std::memcpy(number, big_num.number, size);
 }
 
@@ -58,11 +58,11 @@ BigInt::BigInt(BigInt&& moved)
 BigInt& BigInt::operator=(const BigInt& big_num)
 {
 	if (this == &big_num)
-        return *this;
-    negative = big_num.negative;
+		return *this;
+	delete [] number;
+	negative = big_num.negative;
     size = big_num.size;
     char* ptr = new char[size];
-    delete[] number;
     number = ptr;
     std::copy(big_num.number, big_num.number + size, number);
     return *this;
@@ -74,6 +74,7 @@ BigInt& BigInt::operator=(BigInt&& moved)
         return *this;
     negative = moved.negative;
     size = moved.size;
+    delete [] number;
     number = moved.number;
     moved.number = nullptr;
     moved.size = 0;
@@ -214,7 +215,6 @@ BigInt operator-(const BigInt& l_num, const BigInt& r_num)
 	{
 		if (r_num > l_num)
 			return -(r_num - l_num);
-		//l_num - r_num .... l_num >= r_num
 		size_t max_size = l_num.size;
 		int* diff = new int[max_size];
 		for (size_t i = 0; i < max_size; i++)
@@ -263,4 +263,4 @@ std::ostream& operator<<(std::ostream &out, const BigInt& big_num)
     return out;
 }
 
-BigInt:: ~BigInt(){ delete[] number; }
+BigInt::~BigInt(){ delete [] number;};
