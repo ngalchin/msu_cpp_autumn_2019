@@ -255,11 +255,11 @@ BigInt operator-(const BigInt& l_num, const BigInt& r_num)
 
 std::ostream& operator<<(std::ostream &out, const BigInt& big_num)
 {
-    if (big_num.negative)
-        out << '-';
-    for (size_t i = 0; i < big_num.size; i++)
-        out << big_num.number[i];
-    out << std::endl;
-    return out;
+	if (big_num.negative)
+		out << '-';
+	for (size_t i = 0; i < big_num.size; i++)
+		out << big_num.number[i];
+	out << std::endl;
+	return out;
 }
 BigInt::~BigInt(){ delete [] number;};
