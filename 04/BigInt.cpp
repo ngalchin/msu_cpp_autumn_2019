@@ -262,5 +262,4 @@ std::ostream& operator<<(std::ostream &out, const BigInt& big_num)
     out << std::endl;
     return out;
 }
-
 BigInt::~BigInt(){ delete [] number;};
