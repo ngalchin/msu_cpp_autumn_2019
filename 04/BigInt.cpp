@@ -17,7 +17,7 @@ BigInt::BigInt(int num): negative(num < 0)
 		number[i] = tmp[i];
 }
 
-BigInt::BigInt(): negative(false), number(nullptr), size(0){}
+BigInt::BigInt(): negative(false), number(nullptr), size(0) {}
 
 BigInt::BigInt(const std::string& str)
 {
