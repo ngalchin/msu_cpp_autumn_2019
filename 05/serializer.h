@@ -95,7 +95,12 @@ private:
     Error make(uint64_t& value)
     {
         std::string text;
-        in_ >> text;
+        in_ >> text; // Check if text is uint..
+        for (size_t i = 0; i < text.length(); i++)
+        {
+            if (!std::isdigit(text[i]))
+                return Error::CorruptedArchive;
+        }
         value = std::stoull(text);
         return Error::NoError;
     }
