@@ -1,7 +1,5 @@
 #include "format.h"
 
-
-
 int main()
 {
 	assert(format("{0} + {0} = {1}", "one", 2) == "one + one = 2");
