@@ -38,7 +38,6 @@ string format(const string& str, ArgsT&&... args)
 				throw runtime_error("");
 			if (stoi(tmp) >= arguments.size())
 				throw runtime_error("");
-			//while (str_res.find("{" + tmp + "}") != strng::npos)
 			str_res.replace(str_res.find("{" + tmp + "}"), tmp.length() + 2, arguments[stoi(tmp)]);
 		}
 	}
