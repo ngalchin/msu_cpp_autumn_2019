@@ -10,7 +10,7 @@ int main()
 	{
 		auto err = format("{}", 1);
 	}
-	catch(runtime_error)
+	catch(const std::runtime_error& Error)
 	{
 		assert(true);
 	}
