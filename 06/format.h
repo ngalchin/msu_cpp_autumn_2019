@@ -1,45 +1,46 @@
 #pragma once
+#include <iostream>
 #include <sstream>
 #include <cassert>
 #include <vector>
 
-using namespace std;
-
 //tranform to string
 template <class T>
-string my_str(T&& str)
+std::string my_str(T&& str)
 {
-	stringstream stream;
+	std::stringstream stream;
 	stream << str;
 	return stream.str();
 }
 
 template <class... ArgsT>
-string format(const string& str, ArgsT&&... args)
+std::string format(const std::string& str, ArgsT&&... args)
 {
-	vector<string> arguments = {my_str(forward<ArgsT>(args))...};
-	string str_res = str;
+	std::vector<std::string> arguments = {my_str(std::forward<ArgsT>(args))...};
+	std::string resul = "";
 	for (size_t i = 0; i < str.size(); i++)
 	{
 		if (str[i] == '{')
 		{
-			string tmp = "";
+			std::string tmp = "";
 			i++;
 			while(str[i] != '}')
 			{
 				if (!isdigit(str[i]) || i >= str.size())
 				{
-					throw runtime_error("");
+					throw std::runtime_error("Er");
 				}
 				tmp += str[i];
 				i++;
 			}
 			if (tmp == "")
-				throw runtime_error("");
+				throw std::runtime_error("Er");
 			if (stoi(tmp) >= arguments.size())
-				throw runtime_error("");
-			str_res.replace(str_res.find("{" + tmp + "}"), tmp.length() + 2, arguments[stoi(tmp)]);
+				throw std::runtime_error("Er");
+			resul += arguments[stoi(tmp)];
+		}else{
+			resul += str[i];
 		}
 	}
-	return str_res;
+	return resul;
 }
