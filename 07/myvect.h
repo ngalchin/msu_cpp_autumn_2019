@@ -5,8 +5,8 @@ class Allocator
 {
 public:
 	using value_type = T;
-    using pointer = T*;
-    using size_type = size_t;
+	using pointer = T*;
+	using size_type = size_t;
 
 	pointer allocate(size_type count)
 	{
@@ -40,38 +40,38 @@ template <class T>
 class Iterator
     : public std::iterator<std::forward_iterator_tag, T>
 {
-    T* ptr_;
+	    T* ptr_;
 public:
-	using reference = T&;
+	    using reference = T&;
+	    
+	    explicit Iterator(T* ptr) : ptr_(ptr) {};
 
-    explicit Iterator(T* ptr) : ptr_(ptr) {};
+	    bool operator==(const Iterator<T>& other) const
+	    {
+		    return ptr_ == other.ptr_;
+	    }
 
-    bool operator==(const Iterator<T>& other) const
-    {
-        return ptr_ == other.ptr_;
-    }
+	    bool operator!=(const Iterator<T>& other) const
+	    {
+		    return !(*this == other);
+	    }
 
-    bool operator!=(const Iterator<T>& other) const
-    {
-        return !(*this == other);
-    }
+	    reference operator*() const
+	    {
+		    return *ptr_;
+	    }
 
-    reference operator*() const
-    {
-        return *ptr_;
-    }
+	    Iterator& operator++()
+	    {
+		    ++ptr_;
+		    return *this;
+	    }
 
-    Iterator& operator++()
-    {
-        ++ptr_;
-        return *this;
-    }
-
-    Iterator& operator--()
-    {
-        --ptr_;
-        return *this;
-    }
+	    Iterator& operator--()
+	    {
+		    --ptr_;
+		    return *this;
+	    }
 
 };
 
@@ -80,18 +80,18 @@ template <class T, class Alloc = Allocator<T>>
 class Vector
 {
 public:
-    using iterator = Iterator<T>;
+	using iterator = Iterator<T>;
 	using value_type = T;
-    using pointer = T*;
-    using size_type = size_t;
-    using reverse_iterator = std::reverse_iterator<iterator>;
-    using reference = T&;
+	using pointer = T*;
+	using size_type = size_t;
+	using reverse_iterator = std::reverse_iterator<iterator>;
+	using reference = T&;
 
 private:
-    Alloc alloc_;
-    pointer data_;
-    size_type capacity_;
-    size_type size_;
+	Alloc alloc_;
+	pointer data_;
+	size_type capacity_;
+	size_type size_;
 
 public:
 	Vector()
