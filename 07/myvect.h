@@ -37,42 +37,36 @@ public:
 };
 
 template <class T>
-class Iterator
-    : public std::iterator<std::forward_iterator_tag, T>
+class Iterator : public std::iterator<std::forward_iterator_tag, T>
 {
-	    T* ptr_;
+	T* ptr_;
 public:
-	    using reference = T&;
+	using reference = T&;
 	    
-	    explicit Iterator(T* ptr) : ptr_(ptr) {};
+	explicit Iterator(T* ptr) : ptr_(ptr) {};
 
-	    bool operator==(const Iterator<T>& other) const
-	    {
-		    return ptr_ == other.ptr_;
-	    }
-
-	    bool operator!=(const Iterator<T>& other) const
-	    {
-		    return !(*this == other);
-	    }
-
-	    reference operator*() const
-	    {
-		    return *ptr_;
-	    }
-
-	    Iterator& operator++()
-	    {
-		    ++ptr_;
-		    return *this;
-	    }
-
-	    Iterator& operator--()
-	    {
-		    --ptr_;
-		    return *this;
-	    }
-
+	bool operator==(const Iterator<T>& other) const
+	{
+		return ptr_ == other.ptr_;
+	}
+	bool operator!=(const Iterator<T>& other) const
+	{
+		return !(*this == other);
+	}
+	reference operator*() const
+	{
+		return *ptr_;
+	}
+	Iterator& operator++()
+	{
+		++ptr_;
+		return *this;
+	}
+	Iterator& operator--()
+	{
+		--ptr_;
+		return *this;
+	}
 };
 
 
