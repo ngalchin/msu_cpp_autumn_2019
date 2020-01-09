@@ -1,12 +1,14 @@
 #include <iostream>
+#include <limits>
+#include <iterator>
 
 template <class T>
 class Allocator
 {
 public:
 	using value_type = T;
-	using pointer = T*;
-	using size_type = size_t;
+    using pointer = T*;
+    using size_type = size_t;
 
 	pointer allocate(size_type count)
 	{
@@ -37,36 +39,47 @@ public:
 };
 
 template <class T>
-class Iterator : public std::iterator<std::forward_iterator_tag, T>
+class Iterator
+    : public std::iterator<std::random_access_iterator_tag, T>
 {
-	T* ptr_;
+    T* ptr_;
 public:
 	using reference = T&;
-	    
-	explicit Iterator(T* ptr) : ptr_(ptr) {};
 
-	bool operator==(const Iterator<T>& other) const
-	{
-		return ptr_ == other.ptr_;
-	}
-	bool operator!=(const Iterator<T>& other) const
-	{
-		return !(*this == other);
-	}
-	reference operator*() const
-	{
-		return *ptr_;
-	}
-	Iterator& operator++()
-	{
-		++ptr_;
-		return *this;
-	}
-	Iterator& operator--()
-	{
-		--ptr_;
-		return *this;
-	}
+    explicit Iterator(T* ptr) : ptr_(ptr) {};
+
+    bool operator==(const Iterator<T>& other) const
+    {
+        return ptr_ == other.ptr_;
+    }
+
+    bool operator!=(const Iterator<T>& other) const
+    {
+        return !(*this == other);
+    }
+
+    reference operator*() const
+    {
+        return *ptr_;
+    }
+
+    Iterator& operator[](int n)
+    {
+        return ptr_[n];
+    }
+
+    Iterator& operator++()
+    {
+        ++ptr_;
+        return *this;
+    }
+
+    Iterator& operator--()
+    {
+        --ptr_;
+        return *this;
+    }
+
 };
 
 
@@ -74,18 +87,18 @@ template <class T, class Alloc = Allocator<T>>
 class Vector
 {
 public:
-	using iterator = Iterator<T>;
+    using iterator = Iterator<T>;
 	using value_type = T;
-	using pointer = T*;
-	using size_type = size_t;
-	using reverse_iterator = std::reverse_iterator<iterator>;
-	using reference = T&;
+    using pointer = T*;
+    using size_type = size_t;
+    using reverse_iterator = std::reverse_iterator<iterator>;
+    using reference = T&;
 
 private:
-	Alloc alloc_;
-	pointer data_;
-	size_type capacity_;
-	size_type size_;
+    Alloc alloc_;
+    pointer data_;
+    size_type capacity_;
+    size_type size_;
 
 public:
 	Vector()
@@ -192,7 +205,7 @@ public:
 	{
 		if (size_ == capacity_)
 			reserve(capacity_ * 2);
-		alloc_.construct(data_ + size_, std::forward<T>(val));
+		alloc_.construct(data_ + size_, std::move(val));
 		size_ += 1; 
 	}
 
