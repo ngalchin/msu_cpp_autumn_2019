@@ -11,11 +11,11 @@
 class ThreadPool
 {
 private:
-    std::vector<std::thread> workers;
-    std::queue<std::function<void()>> tasks;
-    std::mutex m;
-    std::condition_variable condition;
-    bool stop;
+	std::vector<std::thread> workers;
+    	std::queue<std::function<void()>> tasks;
+	std::mutex m;
+	std::condition_variable condition;
+	bool stop;
 
 public:
     explicit ThreadPool(size_t poolSize)
@@ -62,13 +62,13 @@ public:
 
     ~ThreadPool()
     {
-    	{
-	        std::unique_lock<std::mutex> lock(m);
-	        stop = true;
-    	}
+	    {
+		    std::unique_lock<std::mutex> lock(m);
+		    stop = true;
+	    }
 	    condition.notify_all();
 	    for(std::thread &worker: workers)
-	        worker.join();
+		    worker.join();
     }
 };
 
