@@ -12,7 +12,7 @@ class ThreadPool
 {
 private:
 	std::vector<std::thread> workers;
-    	std::queue<std::function<void()>> tasks;
+	std::queue<std::function<void()>> tasks;
 	std::mutex m;
 	std::condition_variable condition;
 	bool stop;
@@ -31,7 +31,7 @@ public:
     					std::unique_lock<std::mutex> lock(m);
     					condition.wait(lock, [this]{return (stop || !tasks.empty());});
     					if (stop && tasks.empty())
-    						return;
+							return;
     					task = std::move(tasks.front());
     					tasks.pop();
     				}
@@ -53,7 +53,7 @@ public:
 	    {
 	        std::unique_lock<std::mutex> lock(m);
 	        if(stop)
-	            throw std::runtime_error("");
+				throw std::runtime_error("");
 	        tasks.emplace([task](){ (*task)(); });
 	    }
 	    condition.notify_one();
@@ -62,13 +62,13 @@ public:
 
     ~ThreadPool()
     {
-	    {
-		    std::unique_lock<std::mutex> lock(m);
-		    stop = true;
+		{
+			std::unique_lock<std::mutex> lock(m);
+			stop = true;
 	    }
 	    condition.notify_all();
 	    for(std::thread &worker: workers)
-		    worker.join();
+			worker.join();
     }
 };
 
